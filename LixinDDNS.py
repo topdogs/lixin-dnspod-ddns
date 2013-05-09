@@ -186,5 +186,4 @@ if __name__ == '__main__':
                     pass
         time.sleep(sleepTime)
     pass
->>>>>>> a9a68bff1065a45eaed614e999274ee67b7bf279
     
