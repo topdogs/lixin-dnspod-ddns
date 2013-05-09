@@ -1,5 +1,5 @@
-ÀûÓÃdnspod api ¿ª·¢µÄÒ»¸öddns¡£
-Ö»ÐèÒª¸ù¾Ý×Ô¼ºÊµ¼ÊÇé¿öÌæ»»µÚ14¡¢15¡¢16¡¢17ÐÐµÄÄÚÈÝ¡£
-¾ÍÄÜÊµÏÖ¶¯Ì¬ÓòÃû¡£
-ÊµÏÖÔ­Àí
-Ã¿¸ôÒ»¶Î¹æ¶¨µÄÊ±¼ä£¨ÓÉsleepTime²ÎÊý¾ö¶¨£©²éÑ¯Ò»´Î±¾»ú¹«Íøip£¬Èç¹ûºÍÉÏÒ»´Î»ñÈ¡µÄip²»Í¬£¬ÔòÏëdnspodÇëÇó¸üÐÂipµØÖ·¡£
+åˆ©ç”¨dnspod api å¼€å‘çš„ä¸€ä¸ªddnsã€‚
+åªéœ€è¦æ ¹æ®è‡ªå·±å®žé™…æƒ…å†µæ›¿æ¢ç¬¬14ã€15ã€16ã€17è¡Œçš„å†…å®¹ã€‚
+å°±èƒ½å®žçŽ°åŠ¨æ€åŸŸåã€‚
+å®žçŽ°åŽŸç†
+æ¯éš”ä¸€æ®µè§„å®šçš„æ—¶é—´ï¼ˆç”±sleepTimeå‚æ•°å†³å®šï¼‰æŸ¥è¯¢ä¸€æ¬¡æœ¬æœºå…¬ç½‘ipï¼Œå¦‚æžœå’Œä¸Šä¸€æ¬¡èŽ·å–çš„ipä¸åŒï¼Œåˆ™å‘dnspodè¯·æ±‚æ›´æ–°ipåœ°å€ã€‚
