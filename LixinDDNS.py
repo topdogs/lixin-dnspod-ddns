@@ -11,8 +11,8 @@ public_dic["format"]="json"
 headers={}
 headers["User-Agent"]="lixinDDNS/1(lixin@lixin.me)"
 
-public_dic["login_email"]="lixin@lixin.me" #replace your email
-public_dic["login_password"]="shangshandalaohu" #replace your password
+public_dic["login_email"]="admin@admin.com" #replace your email
+public_dic["login_password"]="password" #replace your password
 domain="lixin.me" #replace your domain
 record="home" #replace your record
 
