@@ -20,7 +20,7 @@ sleepTime=3000
 
 def WriteLog(msg):
     f=open('./ddns.log','a')
-    f.write(time.ctime()+"    "+msg+"\n")
+    f.write(time.strftime("%Y/%m/%d %H:%M:%S",time.localtime())+"    "+msg+"\n")
     f.close()
 def getDomainID():
     url="https://dnsapi.cn/Domain.Info"
@@ -80,16 +80,15 @@ if __name__ == '__main__':
             newIP=getMyIp()
             if ip !=newIP:
                 domainID=getDomainID()
-            if domainID!=0:
-                recordID=getRecordID(domainID)
-                if recordID !=0:
-                    setDDNS(domainID,recordID)
-                    ip=newIP
-                    WriteLog("new ip="+ip)
-                    pass
+                if domainID!=0:
+                    recordID=getRecordID(domainID)
+                    if recordID !=0:
+                        setDDNS(domainID,recordID)
+                        ip=newIP
+                        WriteLog("new ip="+ip)
+                        pass
         except Exception, e:
             WriteLog("has a ERROR:"+e.strerror)
-        
         time.sleep(sleepTime)
     pass
     
