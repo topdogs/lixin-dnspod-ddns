@@ -1,22 +1,37 @@
 ﻿#!/usr/bin/env python
 #-*- coding:utf-8 -*-
+import sys
 import urllib2
 import urllib
 import json
 import time
 import socket
+import os
 
 public_dic={}
-public_dic["login_email"]="" #replace your email
-public_dic["login_password"]="" #replace your password
+public_dic["login_email"]="" #replace your email 替换你的dnspod账号email
+public_dic["login_password"]="" #replace your password 替换你的密码
+domain="lixin.me" #replace your domain  你的域名
+record="home" #replace your record 你的二级域名
 public_dic["format"]="json"
 headers={}
 headers["User-Agent"]="lixinDDNS/1(lixin@lixin.me)"
 
-domain="lixin.me" #replace your domain
-record="home" #replace your record
+isCron=True ##是否作为定时任务执行，isCron==True 的话，则不会进入循环
 ip=''
 sleepTime=3000
+
+def saveIP(ip):
+    f=open('./ddnsip.txt','w')
+    f.write(ip)
+    f.close()
+def readIP():
+    if not os.path.isfile('./ddnsip.txt'):
+        return ""
+    f=open('./ddnsip.txt','r')
+    myip=f.read()
+    f.close()
+    return myip
 
 def WriteLog(msg):
     f=open('./ddns.log','a')
@@ -74,7 +89,37 @@ def setDDNS(domainID,recordID):
     if myJson["status"]["code"]!="1":
         WriteLog("setDDNS has Error: ("+myJson["status"]["code"]+")"+myJson["status"]["message"])
     pass
+    
+def run(email=None,password=None,Domain=domain,Record=record):
+    public_dic["login_email"]=email or public_dic["login_email"]
+    public_dic["login_password"]=password or public_dic["login_password"]
+    domain=Domain
+    record=Record
+    try:
+        newIP=getMyIp()
+        oldIP=readIP()
+        if oldIP==newIP:
+            return
+        domainID=getDomainID()
+        if domainID==0:
+            return
+        recordID=getRecordID(domainID)
+        if recordID==0:
+            return
+        setDDNS(domainID,recordID)
+        saveIP(newIP)
+        WriteLog("new ip="+newIP)
+    except Exception, e:
+        WriteLog("has a ERROR:"+e.strerror)
 if __name__ == '__main__':
+    if len(sys.argv) ==5:
+        public_dic["login_email"]=sys.argv[1]
+        public_dic["login_password"]=sys.argv[2]
+        domain=sys.argv[3]
+        record=sys.argv[4]
+    if isCron:
+        run()
+        exit()
     while True:
         try:
             newIP=getMyIp()
