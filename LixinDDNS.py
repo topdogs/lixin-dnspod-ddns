@@ -7,12 +7,16 @@ import json
 import time
 import socket
 import os
+import ConfigParser
 
 public_dic={}
 public_dic["login_email"]="" #replace your email 替换你的dnspod账号email
 public_dic["login_password"]="" #replace your password 替换你的密码
-domain="lixin.me" #replace your domain  你的域名
-record="home" #replace your record 你的二级域名
+domain="" #replace your domain  你的域名
+record="" #replace your record 你的二级域名
+autosave=1 ## auto save info
+cfgpath='./ddns.cfg'
+cf = ConfigParser.ConfigParser()
 public_dic["format"]="json"
 headers={}
 headers["User-Agent"]="lixinDDNS/1(lixin@lixin.me)"
@@ -20,6 +24,16 @@ headers["User-Agent"]="lixinDDNS/1(lixin@lixin.me)"
 isCron=True ##是否作为定时任务执行，isCron==True 的话，则不会进入循环
 ip=''
 sleepTime=3000
+
+def readcfg():
+    cf.read(cfgpath)
+    o = cf.options("ddns")
+    global domain
+    global record
+    public_dic["login_email"]=cf.get('ddns',"email")
+    public_dic["login_password"]=cf.get('ddns',"password")
+    domain=cf.get('ddns',"domain")
+    record=cf.get('ddns',"record")
 
 def saveIP(ip):
     f=open('./ddnsip.txt','w')
@@ -112,6 +126,10 @@ def run(email=None,password=None,Domain=domain,Record=record):
     except Exception, e:
         WriteLog("has a ERROR:"+e.strerror)
 if __name__ == '__main__':
+    if len(sys.argv)==2:
+        public_dic["login_code"]=sys.argv[1]
+        print 'reading cfg...'
+        readcfg()
     if len(sys.argv) >=5:
         if len(sys.argv) ==6:
             public_dic["login_code"]=sys.argv[5]
