@@ -112,7 +112,9 @@ def run(email=None,password=None,Domain=domain,Record=record):
     except Exception, e:
         WriteLog("has a ERROR:"+e.strerror)
 if __name__ == '__main__':
-    if len(sys.argv) ==5:
+    if len(sys.argv) >=5:
+        if len(sys.argv) ==6:
+            public_dic["login_code"]=sys.argv[5]
         public_dic["login_email"]=sys.argv[1]
         public_dic["login_password"]=sys.argv[2]
         domain=sys.argv[3]
