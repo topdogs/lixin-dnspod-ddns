@@ -36,13 +36,13 @@ def readcfg():
     record=cf.get('ddns',"record")
 
 def saveIP(ip):
-    f=open('./ddnsip.txt','w')
+    f=open('./ddnsip.'+domain+'.'+record,'w')
     f.write(ip)
     f.close()
 def readIP():
-    if not os.path.isfile('./ddnsip.txt'):
+    if not os.path.isfile('./ddnsip.'+domain+'.'+record):
         return ""
-    f=open('./ddnsip.txt','r')
+    f=open('./ddnsip.'+domain+'.'+record,'r')
     myip=f.read()
     f.close()
     return myip
@@ -83,9 +83,9 @@ def getRecordID(domain_id):
 def getMyIp():
     url="ns1.dnspod.net"
     port=6666
-    mySocket=socket.socket(socket.AF_INET,socket.SOCK_STREAM) 
+    mySocket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     mySocket.connect((url,port))
-    recv=mySocket.recv(16) 
+    recv=mySocket.recv(16)
     mySocket.close()
     return recv
 
@@ -103,7 +103,7 @@ def setDDNS(domainID,recordID):
     if myJson["status"]["code"]!="1":
         WriteLog("setDDNS has Error: ("+myJson["status"]["code"]+")"+myJson["status"]["message"])
     pass
-    
+
 def run(email=None,password=None,Domain=domain,Record=record):
     public_dic["login_email"]=email or public_dic["login_email"]
     public_dic["login_password"]=password or public_dic["login_password"]
@@ -124,19 +124,24 @@ def run(email=None,password=None,Domain=domain,Record=record):
         saveIP(newIP)
         WriteLog("new ip="+newIP)
     except Exception, e:
+        pass
         WriteLog("has a ERROR:"+e.strerror)
+
 if __name__ == '__main__':
     if len(sys.argv)==2:
         public_dic["login_code"]=sys.argv[1]
         print 'reading cfg...'
         readcfg()
-    if len(sys.argv) >=5:
-        if len(sys.argv) ==6:
-            public_dic["login_code"]=sys.argv[5]
+    if len(sys.argv) ==5:
         public_dic["login_email"]=sys.argv[1]
         public_dic["login_password"]=sys.argv[2]
         domain=sys.argv[3]
         record=sys.argv[4]
+    if len(sys.argv) ==4:
+        public_dic["login_email"]=sys.argv[1]
+        public_dic["login_password"]=sys.argv[2]
+        domain=sys.argv[3]
+        record=""
     if isCron:
         run()
         exit()
@@ -156,4 +161,3 @@ if __name__ == '__main__':
             WriteLog("has a ERROR:"+e.strerror)
         time.sleep(sleepTime)
     pass
-    
