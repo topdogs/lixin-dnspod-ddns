@@ -25,15 +25,15 @@ isCron=True ##是否作为定时任务执行，isCron==True 的话，则不会�
 ip=''
 sleepTime=3000
 
-def readcfg():
+def readcfg(option='ddns'):
     cf.read(cfgpath)
-    o = cf.options("ddns")
+    o = cf.options(option)
     global domain
     global record
-    public_dic["login_email"]=cf.get('ddns',"email")
-    public_dic["login_password"]=cf.get('ddns',"password")
-    domain=cf.get('ddns',"domain")
-    record=cf.get('ddns',"record")
+    public_dic["login_email"]=cf.get(option,"email")
+    public_dic["login_password"]=cf.get(option,"password")
+    domain=cf.get(option,"domain")
+    record=cf.get(option,"record")
 
 def saveIP(ip):
     f=open('./ddnsip.'+domain+'.'+record,'w')
@@ -131,7 +131,7 @@ if __name__ == '__main__':
     if len(sys.argv)==2:
         public_dic["login_code"]=sys.argv[1]
         print 'reading cfg...'
-        readcfg()
+        readcfg(sys.argv[1])
     if len(sys.argv) ==5:
         public_dic["login_email"]=sys.argv[1]
         public_dic["login_password"]=sys.argv[2]

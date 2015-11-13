@@ -21,7 +21,11 @@
 <code>
 python LixinDDNS.py &lt;email&gt; &lt;password&gt; &lt;domain&gt; &lt;record&gt;
 </code>
-
+##3通过读取配置文件执行
+<code>
+python LixinDDNS.py &lt;option&gt;
+</code>
+其中`option` 作为配置文件的节点保存在文件`ddns.cfg`中,这样就可以同时使用管理多个域名记录。
 ----
 ###联系我
 website：[我的网站](http://www.lixin.me  '李鑫的网站')
