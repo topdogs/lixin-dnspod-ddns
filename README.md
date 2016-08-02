@@ -28,7 +28,10 @@ python LixinDDNS.py &lt;email&gt; &lt;password&gt; &lt;domain&gt; &lt;record&gt;
 python LixinDDNS.py &lt;option&gt;
 </code>
 
-
+----
+##使用注意
+record记录，一般就是你的二级域名记录，应该事先存在，如果你在dnspod上并没有xxx.domain.com 这个xxx记录是不行的。
+使用该脚本，你的dnspod不能开启D令牌。
 
 ----
 ###联系我
