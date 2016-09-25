@@ -15,11 +15,13 @@ public_dic["login_password"]="" #replace your password 替换你的密码
 domain="" #replace your domain  你的域名
 record="" #replace your record 你的二级域名
 autosave=1 ## auto save info
-cfgpath='./ddns.cfg'
+
 cf = ConfigParser.ConfigParser()
 public_dic["format"]="json"
 headers={}
 headers["User-Agent"]="lixinDDNS/1(lixin@lixin.me)"
+currentPath=os.path.split(os.path.realpath(__file__))[0]
+cfgpath=os.path.join(currentPath,'ddns.cfg')
 
 isCron=True ##是否作为定时任务执行，isCron==True 的话，则不会进入循环
 ip=''
@@ -36,19 +38,19 @@ def readcfg(option='ddns'):
     record=cf.get(option,"record")
 
 def saveIP(ip):
-    f=open('./ddnsip.'+domain+'.'+record,'w')
+    f=open(os.path.join(currentPath,'ddnsip.'+domain+'.'+record),'w')
     f.write(ip)
     f.close()
 def readIP():
-    if not os.path.isfile('./ddnsip.'+domain+'.'+record):
+    if not os.path.isfile(os.path.join(currentPath,'ddnsip.'+domain+'.'+record)):
         return ""
-    f=open('./ddnsip.'+domain+'.'+record,'r')
+    f=open(os.path.join(currentPath,'ddnsip.'+domain+'.'+record),'r')
     myip=f.read()
     f.close()
     return myip
 
 def WriteLog(msg):
-    f=open('./ddns.log','a')
+    f=open(os.path.join(currentPath,'ddns.log'),'a')
     f.write(time.strftime("%Y/%m/%d %H:%M:%S",time.localtime())+"    "+msg+"\n")
     f.close()
 def getDomainID():
